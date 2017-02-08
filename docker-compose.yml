@@ -1,0 +1,25 @@
+version: '2'
+services:
+  backend:
+    image: debian:jessie
+    volumes:
+      - .:/var/www
+  php_apache:
+    build: docker/php
+    ports:
+      - 80
+    volumes_from:
+      - backend
+  db:
+    image: mariadb
+    environment:
+      MYSQL_USER: phpexpresso
+      MYSQL_PASSWORD: phpexpresso
+      MYSQL_DATABASE: phpexpresso
+      MYSQL_ROOT_PASSWORD: root
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8181:80
+    environment:
+      MYSQL_ROOT_PASSWORD: root
