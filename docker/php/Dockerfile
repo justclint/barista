@@ -1,7 +1,5 @@
 FROM php:7-apache
 
-ENV BUILD_ENV dev
-
 # RUN apt-get update --fix-missing -qq \
 #   && apt-get upgrade -f -y \
 RUN apt-get update -qq && apt-get install mysql-client nano openssl wget -yq
@@ -13,10 +11,7 @@ ADD vhost.conf /etc/apache2/sites-available/000-default.conf
 RUN a2ensite 000-default
 
 # Install the PHP extensions we need.
-RUN apt-get update && apt-get install -y libcurl4-openssl-dev libicu-dev libmcrypt-dev libpng12-dev libjpeg-dev libpq-dev libxml2-dev libxslt-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-    && docker-php-ext-install gd json hash iconv intl mbstring mcrypt mysqli opcache pcntl pdo pdo_mysql pdo_pgsql simplexml soap xml xsl zip
+RUN apt-get update && apt-get install -y libcurl4-openssl-dev libicu-dev libmcrypt-dev libpng12-dev libjpeg-dev libpq-dev libxml2-dev libxslt-dev
 
 # Installs for specific PHP versions.
 RUN PHP_MAJOR_VERSION=$( echo "${PHP_VERSION}" | cut -f1 -d "." ) && \
@@ -27,6 +22,11 @@ RUN PHP_MAJOR_VERSION=$( echo "${PHP_VERSION}" | cut -f1 -d "." ) && \
     then \
       apt-get update && apt-get install pkg-config libmagickwand-dev -yq; \
   fi
+
+# Configure PHP extensions.
+RUN rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
+    && docker-php-ext-install gd json hash iconv intl mbstring mcrypt mysqli opcache pcntl pdo pdo_mysql pdo_pgsql simplexml soap xml xsl zip
 
 # Set recommended PHP.ini settings.
 # See https://secure.php.net/manual/en/opcache.installation.php
