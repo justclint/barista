@@ -14,7 +14,8 @@ What's included:
   - Barista Installer
   -- Drupal 7
   -- Drupal 8
-  -- Magento 2 ( Currently only with PHP 5 )
+  -- Magento 2
+  ---- Supported PHP verions: http://devdocs.magento.com/guides/v2.0/install-gde/system-requirements-tech.html
   ---- Requires keys: http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html
   -- Symfony 2
   -- Symfony 3
