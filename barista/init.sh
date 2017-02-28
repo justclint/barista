@@ -12,7 +12,7 @@ if [ ! -d "docker/nginx" ];
   then
     container_php_name=${project//[-._]/}"_php_apache_1"
   else
-    container_php_name=${project//[-._]/}"$project_nginx_1"
+    container_php_name=${project//[-._]/}"_nginx_1"
 fi
 
 container_php_get_port="$(docker port $container_php_name)"
@@ -22,7 +22,7 @@ cat > barista/vars.ini << EOF
 projroot="/var/www"
 docroot="/var/www/web"
 baristaroot="/var/www/barista"
-db_host="$(docker ps -aqf 'name=expressophp_db_1')"
+db_host="$(docker ps -aqf 'name='${project//[-._]/}'_db_1')"
 db_port="3306"
 db_name="$services_db_environment_MYSQL_DATABASE"
 db_user="$services_db_environment_MYSQL_USER"
