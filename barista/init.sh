@@ -6,11 +6,13 @@
 # Parse docker-compose.yml for system variables.
 eval $(parse_yaml docker-compose.yml)
 
+project=${PWD##*/}
+
 if [ ! -d "docker/nginx" ];
   then
-    container_php_name="expressophp_php_apache_1"
+    container_php_name=${project//[-._]/}"_php_apache_1"
   else
-    container_php_name="expressophp_nginx_1"
+    container_php_name=${project//[-._]/}"$project_nginx_1"
 fi
 
 container_php_get_port="$(docker port $container_php_name)"
