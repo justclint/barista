@@ -21,12 +21,14 @@ What's included:
   -- Wordpress 4
 
 ### PHP 7 or PHP 5?
-You can switch between the latest release of PHP 7 or the latest of PHP 5, by
+You can switch between PHP versions by
 changing the first line of the file "docker/php/Dockerfile".
+Currently you can use any of the "X-apache" versions found here:
+https://hub.docker.com/_/php/
+examples:
 ```
 FROM php:5-apache
-or
-FROM php:7-apache
+FROM php:7.0-apache
 ```
 
 ### Get started
