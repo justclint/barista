@@ -1,56 +1,66 @@
-# Expresso PHP
+# Barisata for Expresso PHP
 
-Express and simple docker setup for all your PHP development.
+Express and simple application installer for PHP development.
 
 ### Apache + PHP
 
 What's included:
 
-  - Apache
-  - PHP
-  - Mariadb
-  - PhpMyAdmin
+  - Expresso PHP
+   - https://github.com/expresso-php/expresso-php
+   - Currently only supports the Apache branch.
+   - Nginx is currently in development.
 
-Check the other branches of this repo for some more options.
+  - Barista Installer
+    - Drupal 7
+    - Drupal 8
+    - Magento 2
+      - Supported PHP verions: http://devdocs.magento.com/guides/v2.0/install-gde/system-requirements-tech.html
+      - Requires keys: http://devdocs.magento.com/guides/v2.0/install-gde/prereq/connect-auth.html
+    - Symfony 2
+    - Symfony 3
+    - Wordpress 4
 
-### Official containers only
-All of this is based on officials containers, so you won't download any
-specific containers to use this project.
-
-### PHP 7 or PHP 5?
-You can switch between the latest release of PHP 7 or the latest of PHP 5, by
-changing the first line of the file "docker/php/Dockerfile".
+### Supports PHP 5 & 7
+You can switch between PHP versions by changing the first line of
+the file "docker/php/Dockerfile".
+Currently you can use any of the "X-apache" versions found here:
+https://hub.docker.com/_/php/
+examples:
 ```
 FROM php:5-apache
+FROM php:7.0-apache
 ```
 
 ### Get started
-All your Drupal files should be placed into the folder "web".
-
-Run docker compose.
+Run docker compose & initialze barista.
 ```
-$ docker-compose up -d
+$ docker-compose up -d && barista/init.sh
+```
+Install your application.
+Options:
+- drupal7
+- drupal8
+- magento2
+- symfony2
+- symfony3
+- wordpress4
+
+Method 1 - Install from host.
+```
+$ docker-compose run --rm php_apache barista/install.sh drupal7
 ```
 
-Place your PHP files in the folder called web.
-
-That's it!
-
-### Drush (command line tool for Drupal)
-
-Run drush
+Method 2 - Install from container.
+Log into container.
 ```
-$  docker-compose run --rm php drush help
+$ docker-compose exec php_apache /bin/bash
 ```
 
-### Database credentials
-This is for development !!
+From your project root /var/www
+```
+$ barista/install.sh drupal7
+```
 
-* User: phpexpresso
-* Password: phpexpresso
-* Database: phpexpresso
+All your application files will be installed into /var/www/web.
 
-### MySQL and PhpMyAdmin credentials
-The port of PhpMyAdmin is 8181, access PhpMyAdmin by going to http://localhost:8181.
-* Username: root
-* Password: root
