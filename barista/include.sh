@@ -34,16 +34,6 @@ validate_install_options() {
     drupal8)
     ;;
     magento2)
-      PHP_MAJOR_VERSION=$(echo $PHP_VERSION | cut -f1 -d".")
-      if [ $PHP_MAJOR_VERSION = "7" ];
-        then
-        echo_style 2 "Expresso PHP does not currently support Magento on PHP 7."
-        echo_style 2 "This is because Expresso PHP uses the latest version of PHP 7 which Magento 2 does not yet support."
-        echo_style 2 "You can rebuild your container to use PHP 5 by doing the following:"
-        echo "- In your docker-compose.yml file, on the first line edit php:7-apache to php:5-apache"
-        echo "- Run $ docker-compose build --no-cache && docker-compose up -d --remove-orphans && barista/init.sh"
-        exit 1
-      fi
     ;;
     symfony2)
     ;;
