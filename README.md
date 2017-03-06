@@ -1,4 +1,4 @@
-# Barisata for Expresso PHP
+# Barista for Expresso PHP
 
 Express and simple application installer for PHP development.
 
