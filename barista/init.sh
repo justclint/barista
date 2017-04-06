@@ -18,6 +18,20 @@ fi
 container_php_get_port="$(docker port $container_php_name)"
 container_php_port="$(cut -d ":" -f 2 <<< $container_php_get_port)"
 
+# Site URL setting based on docker install type.
+# In most cases leave default. But if you use "dinghy" for OSX
+# then change value to "dinghy".
+
+docker_type="dinghy"
+
+if [ ${docker_type} = "default" ];
+  then
+    docker_site_url="localhost:$container_php_port"
+elif [ ${docker_type} = "dinghy" ];
+  then
+    docker_site_url="${project//[-._]/}.docker:$container_php_port"
+fi
+
 cat > barista/vars.ini << EOF
 projroot="/var/www"
 docroot="/var/www/web"
@@ -28,5 +42,5 @@ db_name="$services_db_environment_MYSQL_DATABASE"
 db_user="$services_db_environment_MYSQL_USER"
 db_pw="$services_db_environment_MYSQL_PASSWORD"
 container_php_port="$container_php_port"
-site_url="localhost:$container_php_port"
+site_url="$docker_site_url"
 EOF
