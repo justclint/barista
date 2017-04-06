@@ -31,6 +31,15 @@ examples:
 FROM php:5-apache
 FROM php:7.0-apache
 ```
+### Note for Dinghy on OSX users
+Before running barista/init.sh update the folling in init.sh
+```
+docker_type="default"
+```
+to
+```
+docker_type="dinghy"
+```
 
 ### Get started
 Run docker compose & initialze barista.
