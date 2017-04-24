@@ -39,6 +39,10 @@ RUN { \
         echo 'opcache.enable_cli=1'; \
         echo 'memory_limit = -1'; \
         echo 'max_execution_time = -1'; \
+        echo 'date.timezone = America/Los_Angeles'; \
+        echo 'log_errors = On'; \
+        echo 'error_reporting = E_ALL'; \
+        echo 'error_log = /var/www/logs/error.log'; \
     } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 WORKDIR /var/www
