@@ -35,6 +35,7 @@ fi
 cat > barista/vars.ini << EOF
 projroot="/var/www"
 docroot="/var/www/web"
+webroot="/var/www/web"
 baristaroot="/var/www/barista"
 db_host="$(docker ps -aqf 'name='${project//[-._]/}'_db_1')"
 db_port="3306"

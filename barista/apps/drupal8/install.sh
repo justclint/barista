@@ -4,7 +4,7 @@
 # Drupal 8
 #
 
-# Check/Install Composer.
+#Check/Install Composer.
 cmd_exists composer
 if [ ! "$?" = 1 ];
 then
@@ -26,9 +26,6 @@ cd $webroot && drush si standard \
   --db-url='mysql://'$db_user':'$db_pw'@'$db_host'/'$db_name -y \
   --site-name=ExpressoPHP --locale=en \
   --account-pass=admin --account-mail=admin@example.com \
-
-# Install Drupal Console.
-cd $webroot && composer require drupal/console:~1.0
 
 # Clear cache.
 echo_style 2 "Claering cache..."
